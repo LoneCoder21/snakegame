@@ -11,7 +11,7 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var width = 20;
 var height = 20;
-var rate = 100; // draw rate
+var rate = 50; // draw rate
 var size = Math.floor(canvas.width / width);
 var directions = [
     { x: -1, y: 0 }, //left
@@ -22,7 +22,8 @@ var directions = [
 var score = 0;
 var direction = 0;
 var parts_pos = [{ x: width / 2, y: height / 2 }];
-growSnake();
+for (var i = 0; i < 3; ++i)
+    growSnake();
 var apple_pos = {
     x: Math.floor(Math.random() * width),
     y: Math.floor(Math.random() * height),
@@ -64,29 +65,38 @@ function growSnake() {
     parts_pos.push(next_pos);
 }
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-    ctx.fillStyle = "grey";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < width; ++i) {
+        for (var j = 0; j < height; ++j) {
+            var flip = (i + j) & 1;
+            ctx.fillStyle = flip ? "#66FF99" : "white";
+            ctx.fillRect(i * size, j * size, size, size);
+        }
+    } //draw grid pattern and clear canvas
     var cur_pos = {
         x: parts_pos[0].x + directions[direction].x,
         y: parts_pos[0].y + directions[direction].y,
     };
-    if (cur_pos.x < 0 ||
-        cur_pos.x >= width ||
-        cur_pos.y < 0 ||
-        cur_pos.y >= height) {
+    parts_pos = __spreadArray([cur_pos], parts_pos, true);
+    parts_pos.pop();
+    //move snake
+    if (parts_pos[0].x < 0 ||
+        parts_pos[0].x >= width ||
+        parts_pos[0].y < 0 ||
+        parts_pos[0].y >= height ||
+        parts_pos.find(function (el, idx) {
+            return idx && objectEqual(el, parts_pos[0]);
+        })) {
+        // collision check
         console.log("gameover");
         clearInterval(interval_id);
     }
-    parts_pos = __spreadArray([cur_pos], parts_pos, true);
-    parts_pos.pop();
     if (objectEqual(parts_pos[0], apple_pos)) {
         eatApple();
         growSnake();
     }
     //render snake
-    ctx.fillStyle = "green";
-    parts_pos.forEach(function (pos) {
+    parts_pos.forEach(function (pos, idx) {
+        ctx.fillStyle = idx ? "brown" : "orange";
         ctx.fillRect(pos.x * size, pos.y * size, size, size);
     });
     //render apple
