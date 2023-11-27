@@ -1,0 +1,28 @@
+{
+    "name": "snakegame",
+    "version": "1.0.0",
+    "description": "Base snake game in typescript",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "npx tsc index.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LoneCoder21/snakegame.git"
+    },
+    "keywords": [
+        "snake",
+        "game",
+        "typescript"
+    ],
+    "author": "Abhinav Neelam <abhinavneelam949@gmail.com> (https://github.com/LoneCoder21)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LoneCoder21/snakegame/issues"
+    },
+    "homepage": "https://github.com/LoneCoder21/snakegame#readme",
+    "dependencies": {
+        "typescript": "^5.3.2"
+    }
+}
