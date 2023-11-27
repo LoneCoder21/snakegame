@@ -92,3 +92,6 @@ Thumbs.db
 
 #Personal
 index.js
+
+node_modules/
+node_modules
