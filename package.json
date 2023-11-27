@@ -23,6 +23,7 @@
     },
     "homepage": "https://github.com/LoneCoder21/snakegame#readme",
     "dependencies": {
+        "prettier": "^3.1.0",
         "typescript": "^5.3.2"
     }
 }
